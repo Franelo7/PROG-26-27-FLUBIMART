@@ -18,6 +18,8 @@ public class EjemploCompra3 {
         System.out.print("Cantidad: ");
         double cantidadP = sc.nextDouble();
 
+        sc.close();
+
         double precioIva = precioP * cantidadP * (1 + IVA);
         double ivaP = precioIva - precioP * cantidadP;
         System.out.println();
