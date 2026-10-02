@@ -25,9 +25,9 @@ public class Factura {
 
         if (total > 100) {
             total -= total * (DESCUENTO / 100.);
-            System.out.printf("El precio final con descuento es de: %.2f euros", total);
-        } else {
-            System.out.printf("El precio final es de: %.2f euros", total);
+            System.out.println("Se ha aplicado un descuento");
         }
+        System.out.printf("El precio final es de: %.2f euros", total);
+
     }
 }
