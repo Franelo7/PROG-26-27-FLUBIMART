@@ -1,4 +1,4 @@
-package ud2.ejercicios;
+package ud2.ejercicios.bucles;
 
 import java.util.Scanner;
 
