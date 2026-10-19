@@ -17,17 +17,16 @@ public class Primo {
     }
 
     public static boolean esPrimo(int n) {
-        int contador = 0;
+        if (n < 2) {
+            return false;
+        }
 
         for (int i = 2; i < n; i++) {
             if (n % i == 0) {
-                contador++;
+                return false;
             }
         }
-        if (contador == 0 && n != 2) {
-            return true;
-        }
 
-        return false;
+        return true;
     }
 }
