@@ -1,7 +1,10 @@
 package ud2.ejercicios;
 
 import java.util.Scanner;
-
+/**
+ * @author Fran
+ * FormacionSoldados
+ */
 public class FormacionSoldados {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
