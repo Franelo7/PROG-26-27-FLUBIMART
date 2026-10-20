@@ -1,7 +1,5 @@
 package ud2.ejercicios.metodos;
 
-import java.util.Scanner;
-
 /**
  * @author Fran
  *         Primo
@@ -9,11 +7,10 @@ import java.util.Scanner;
 
 public class Primo {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Introduce un número: ");
-        int n = sc.nextInt();
-        sc.close();
-        System.out.println(esPrimo(n));
+
+        for (int i = 2; i <= 20; i++) {
+            System.out.println(i + " " + esPrimo(i));
+        }
     }
 
     public static boolean esPrimo(int n) {
@@ -21,7 +18,7 @@ public class Primo {
             return false;
         }
 
-        for (int i = 2; i < n; i++) {
+        for (int i = 2; i < n / 2; i++) {
             if (n % i == 0) {
                 return false;
             }
