@@ -18,7 +18,7 @@ public class Primo {
             return false;
         }
 
-        for (int i = 2; i < n / 2; i++) {
+        for (int i = 2; i <= n / 2; i++) {
             if (n % i == 0) {
                 return false;
             }

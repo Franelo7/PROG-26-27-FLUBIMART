@@ -6,7 +6,7 @@ package ud2.ejercicios.metodos;
 public class NumDivisoresPrimos {
 
     public static void main(String[] args) {
-        divisoresPrimos(10);
+        divisoresPrimos(20);
     }
 
     public static void divisoresPrimos(int n) {
