@@ -2,24 +2,12 @@ package ud2.ejercicios;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
+/**
+ * @author Fran
+ * Supermercado
+ */
 public class Supermercado {
     static Scanner sc = new Scanner(System.in);
-    // Billetes
-    final int BILLETE5 = 5;
-    final int BILLETE10 = 10;
-    final int BILLETE20 = 20;
-    final int BILLETE50 = 50;
-
-    // Monedas
-    final int MONEDAC1 = 1;
-    final int MONEDAC2 = 2;
-    final int MONEDA5 = 5;
-    final int MONEDA10 = 10;
-    final int MONEDA20 = 20;
-    final int MONEDA50 = 50;
-    final int MONEDA1 = 1;
-    final int MONEDA2 = 2;
 
     public static void main(String[] args) {
         cajaCobro();
@@ -42,9 +30,10 @@ public class Supermercado {
         int n = (int) solicitar();
         if (n == 1) {
             pagoEfectivo(importe);
+            atenderAOtro();
         } else if (n == 2) {
             System.out.println("Pago finalizado.");
-            System.out.println("Hasta Luego!!!!!!");
+            atenderAOtro();
 
         } else {
             System.out.println("Opción no contemplada!!!!");
@@ -56,80 +45,53 @@ public class Supermercado {
 
         System.out.print("Introduce billetes y/o monedas: ");
         double otorgadoCliente = solicitar();
-        if (otorgadoCliente == precio) {
-            System.out.printf("Pagado: %.2f euros\nCambio: 0,00 euros ", otorgadoCliente);
-            System.out.println("Hasta Luego!!");
+        if (Math.abs(otorgadoCliente - precio) < 0.001) {
+            System.out.printf("Pagado: %.2f euros\nCambio: 0,00 euros\n", otorgadoCliente);
         } else if (otorgadoCliente < precio) {
             System.out.println("Dinero insuficiente!!!");
             pagoEfectivo(precio);
         } else {
-            double cambio = otorgadoCliente - precio;
+            // Pasamos a céntimos redondeando a entero
+            int cambio = (int) Math.round((otorgadoCliente - precio) * 100);
             imprimirCambio(cambio);
         }
 
     }
 
-    public static void imprimirCambio(double cambio) {
-        System.out.println("El cambio a devolver es de: " + cambio / 100.0 + " euros");
-        double billetes50 = cambio / 5000;
-        cambio %= 5000;
-        double billetes20 = cambio / 2000;
-        cambio %= 2000;
-        double billetes10 = cambio / 1000;
-        cambio %= 1000;
-        double billetes5 = cambio / 500;
-        cambio %= 500;
-        double monedas2 = cambio / 200;
-        cambio %= 200;
-        double monedas1 = cambio / 100;
-        cambio %= 100;
-        double monedas50 = cambio / 50;
-        cambio %= 50;
-        double monedas20 = cambio / 20;
-        cambio %= 20;
-        double monedas10 = cambio / 10;
-        cambio %= 10;
-        double monedas5 = cambio / 5;
-        cambio %= 5;
-        double monedas2Cent = cambio / 2;
-        cambio %= 2;
-        double monedas1Cent = cambio;
-        if (billetes50 > 0) {
-            System.out.println("Billetes de 50 euros: " + billetes50);
+    private static void atenderAOtro() {
+        System.out.println("Atender a otro cliente? 1=SI / 2=NO");
+        int n = (int) solicitar();
+        if (n == 1) {
+            cajaCobro();
+        } else {
+            System.out.println("Hasta Luego!!!!");
         }
-        if (billetes20 > 0) {
-            System.out.println("Billetes de 20 euros: " + billetes20);
+    }
+
+    public static void imprimirCambio(int cambio) {
+        System.out.printf("El cambio a devolver es de: %.2f euros\n", cambio / 100.0);
+
+        // Cada llamada descuenta lo que puede y devuelve lo que sobra
+        cambio = entregar(cambio, 5000, "Billetes de 50 euros");
+        cambio = entregar(cambio, 2000, "Billetes de 20 euros");
+        cambio = entregar(cambio, 1000, "Billetes de 10 euros");
+        cambio = entregar(cambio, 500, "Billetes de 5 euros");
+        cambio = entregar(cambio, 200, "Monedas de 2 euros");
+        cambio = entregar(cambio, 100, "Monedas de 1 euro");
+        cambio = entregar(cambio, 50, "Monedas de 50 centimos");
+        cambio = entregar(cambio, 20, "Monedas de 20 centimos");
+        cambio = entregar(cambio, 10, "Monedas de 10 centimos");
+        cambio = entregar(cambio, 5, "Monedas de 5 centimos");
+        cambio = entregar(cambio, 2, "Monedas de 2 centimos");
+        cambio = entregar(cambio, 1, "Monedas de 1 centimo");
+    }
+
+    static int entregar(int saldo, int valor, String texto) {
+        int unidades = saldo / valor;
+        if (unidades > 0) {
+            System.out.println(texto + ": " + unidades);
         }
-        if (billetes10 > 0) {
-            System.out.println("Billetes de 10 euros: " + billetes10);
-        }
-        if (billetes5 > 0) {
-            System.out.println("Billetes de 5 euros: " + billetes5);
-        }
-        if (monedas2 > 0) {
-            System.out.println("Monedas de 2 euros: " + monedas2);
-        }
-        if (monedas1 > 0) {
-            System.out.println("Monedas de 1 euro: " + monedas1);
-        }
-        if (monedas50 > 0) {
-            System.out.println("Monedas de 50 centimos: " + monedas50);
-        }
-        if (monedas20 > 0) {
-            System.out.println("Monedas de 20 centimos: " + monedas20);
-        }
-        if (monedas10 > 0) {
-            System.out.println("Monedas de 10 centimos: " + monedas10);
-        }
-        if (monedas5 > 0) {
-            System.out.println("Monedas de 5 centimos: " + monedas5);
-        }
-        if (monedas2Cent > 0) {
-            System.out.println("Monedas de 2 centimos: " + monedas2Cent);
-        }
-        if (monedas1Cent > 0) {
-            System.out.println("Monedas de 1 centimo: " + monedas1Cent);
-        }
+        return saldo % valor;
     }
 
     static double calculo(double importe, int cantidad) {
@@ -174,8 +136,9 @@ public class Supermercado {
 
         } catch (InputMismatchException e) {
             System.out.print("ERROR! \nIntroduce valores numéricos!!: ");
-
+            sc.nextLine();
+            return solicitar();
         }
-        return solicitar();
+
     }
 }
